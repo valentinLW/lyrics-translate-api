@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   scope '/api' do
     resources :song, only: %i[index show create], param: :song_slug
     resources :lyric, only: [:create]
-    resources :translation, only: [:show], param: :translation_slug
+    resources :translation, only: %i[index show], param: :translation_slug
   end
 end
