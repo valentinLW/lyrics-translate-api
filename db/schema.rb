@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_31_175303) do
+ActiveRecord::Schema.define(version: 2021_12_31_183348) do
 
   create_table "artists", force: :cascade do |t|
     t.string "name"
@@ -25,14 +25,12 @@ ActiveRecord::Schema.define(version: 2021_12_31_175303) do
   end
 
   create_table "lyrics", force: :cascade do |t|
-    t.integer "song_id", null: false
-    t.integer "language_id", null: false
+    t.integer "translation_id", null: false
     t.string "content"
     t.integer "line"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["language_id"], name: "index_lyrics_on_language_id"
-    t.index ["song_id"], name: "index_lyrics_on_song_id"
+    t.index ["translation_id"], name: "index_lyrics_on_translation_id"
   end
 
   create_table "songs", force: :cascade do |t|
@@ -46,8 +44,19 @@ ActiveRecord::Schema.define(version: 2021_12_31_175303) do
     t.index ["language_id"], name: "index_songs_on_language_id"
   end
 
-  add_foreign_key "lyrics", "languages"
-  add_foreign_key "lyrics", "songs"
+  create_table "translations", force: :cascade do |t|
+    t.integer "song_id", null: false
+    t.integer "language_id", null: false
+    t.string "slug"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["language_id"], name: "index_translations_on_language_id"
+    t.index ["song_id"], name: "index_translations_on_song_id"
+  end
+
+  add_foreign_key "lyrics", "translations"
   add_foreign_key "songs", "artists"
   add_foreign_key "songs", "languages"
+  add_foreign_key "translations", "languages"
+  add_foreign_key "translations", "songs"
 end

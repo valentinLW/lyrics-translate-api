@@ -9,5 +9,5 @@
 languages = %w[german portuguese english spanish]
 
 languages.each do |l|
-  Language.create(name:l)
+  Language.create(name: l)
 end
