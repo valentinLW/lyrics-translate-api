@@ -1,6 +1,7 @@
 class TranslationController < ApplicationController
   def show
     @translation = Translation.find_by(slug: params[:translation_slug])
-    render json: { translation: @translation, lyrics: @translation.lyrics }
+    @original = Translation.find_by(song: @translation.song, language: @translation.song.language)
+    render json: { translation: @translation, from: @original.lyrics, to: @translation.lyrics }
   end
 end

@@ -3,6 +3,7 @@ class LyricController < ApplicationController
     @from_language = Language.find_by(name: params[:from_language])
     @to_language = Language.find_by(name: params[:to_language])
     @song = Song.find_by(slug: params[:song_slug])
+
     @original = Translation.create(language: @from_language, song: @song)
     @translation = Translation.create(language: @to_language, song: @song)
 
