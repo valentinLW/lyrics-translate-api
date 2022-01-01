@@ -11,6 +11,6 @@ class LyricController < ApplicationController
       Lyric.create(translation: @original, line: index, content: params[:from][index])
       Lyric.create(translation: @translation, line: index, content: params[:to][index])
     end
-    render json: { ok: "ok" }
+    render json: { translation: @translation }
   end
 end
